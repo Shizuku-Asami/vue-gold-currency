@@ -18,7 +18,7 @@ export const CurrencyService = {
   getRealTimeMetalPrice(
     metalSymbol: string,
     currencySymbol: string
-  ): Promise<AxiosResponse<any, any>> {
+  ): Promise<AxiosResponse> {
     const url =
       process.env.VUE_APP_API_BASE_URL +
       `${metalSymbol}/` +
