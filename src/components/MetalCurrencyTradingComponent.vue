@@ -10,6 +10,8 @@
 </template>
 
 <script lang="ts">
+// This data is for testing purpose, it'll be replaced later
+// after the API call.
 let data = {
   timestamp: 1659194862,
   metal: "XAU",

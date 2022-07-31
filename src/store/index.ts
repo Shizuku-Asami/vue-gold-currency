@@ -5,7 +5,7 @@ import { MetalCurrencyService } from "../services/currency.service";
 
 export default createStore({
   state: {
-    metalCurrencyList: [],
+    metalCurrencyList: [] as MetalCurrency[],
   },
   getters: {
     getMetalValueByCurrency: (state) => (metal: string, currency: string) => {
@@ -15,7 +15,11 @@ export default createStore({
       );
     },
   },
-  mutations: {},
+  mutations: {
+    addMetalCurrency(state, metalCurrency: MetalCurrency) {
+      state.metalCurrencyList.push(metalCurrency);
+    },
+  },
   actions: {
     getRealTimeMetalPrice(context, payload) {
       MetalCurrencyService.getRealTimeMetalPrice(
