@@ -1,10 +1,10 @@
 <template>
   <div class="border border-gray-500 rounded-md max-w-md p-2 m-2">
-    <h3>{{ metalCode }}{{ currencyCode }}</h3>
+    <h3>{{ metal }}{{ currency }}</h3>
     <div>
       <span>price</span>
       <span>{{ data.price }}</span>
-      <span>{{ currencyCode }}</span>
+      <span>{{ currency }}</span>
     </div>
   </div>
 </template>
@@ -34,7 +34,7 @@ let data = {
 };
 export default {
   name: "MetaCurrencyTradingComponent",
-  props: ["metalCode", "currencyCode"],
+  props: ["metal", "currency"],
   data() {
     return {
       data: data,

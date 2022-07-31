@@ -8,21 +8,18 @@ const config = {
   },
 };
 
-export const CurrencyService = {
+export const MetalCurrencyService = {
   /**
    *
-   * @param {string} metalSymbol - The metal to be converted. possible values: ["XAU", "XAG", "XPT", "XPD"].
-   * @param {string} currencySymbol - The target currency. possible values: ["USD", "AUD", "GBP", "EUR", "CHF", "CAD", "JPY", "KRW", "INR", "CNY", "ZAR", "THB", "SGD", "BTC", "HKD", "CZK", "RUB", "PLN", "MYR", "SED", "KWD", "EGP", "OMR", "SAR", "MXN", "XAG"].
+   * @param {string} metal - The code of metal to be converted. possible values: ["XAU", "XAG", "XPT", "XPD"].
+   * @param {string} currency - The code of target currency. possible values: ["USD", "AUD", "GBP", "EUR", "CHF", "CAD", "JPY", "KRW", "INR", "CNY", "ZAR", "THB", "SGD", "BTC", "HKD", "CZK", "RUB", "PLN", "MYR", "SED", "KWD", "EGP", "OMR", "SAR", "MXN", "XAG"].
    * @returns {Promise} Promise containing JSON Response that descripes the relationship between the metal and the currency.
    */
   getRealTimeMetalPrice(
-    metalSymbol: string,
-    currencySymbol: string
+    metal: string,
+    currency: string
   ): Promise<AxiosResponse> {
-    const url =
-      process.env.VUE_APP_API_BASE_URL +
-      `${metalSymbol}/` +
-      `${currencySymbol}/`;
+    const url = process.env.VUE_APP_API_BASE_URL + `${metal}/` + `${currency}/`;
     return axios.get(url, config);
   },
 };

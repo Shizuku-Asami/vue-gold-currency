@@ -1,5 +1,5 @@
 <template>
-  <MetalCurrencyTradingComponent metalCode="XAU" currencyCode="USD" />
+  <MetalCurrencyTradingComponent metal="XAU" currency="USD" />
   <router-view />
 </template>
 
