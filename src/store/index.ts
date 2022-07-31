@@ -1,33 +1,35 @@
-import { MetalCurrency } from "@/models/metalcurrency";
 import { AxiosResponse } from "axios";
 import { createStore } from "vuex";
 import { MetalCurrencyService } from "../services/currency.service";
 
 export default createStore({
   state: {
-    metalCurrencyList: [] as MetalCurrency[],
+    metalCurrency: {
+      success: true,
+      base: "",
+      rates: {},
+    },
   },
   getters: {
-    getMetalValueByCurrency: (state) => (metal: string, currency: string) => {
-      return state.metalCurrencyList.filter(
-        (metalCurrency: MetalCurrency) =>
-          metalCurrency.metal == metal && metalCurrency.currency == currency
-      );
+    getMetalCurrency(state) {
+      return state.metalCurrency;
     },
   },
   mutations: {
-    addMetalCurrency(state, metalCurrency: MetalCurrency) {
-      state.metalCurrencyList.push(metalCurrency);
+    setMetalCurrency(state, metalCurrency: any) {
+      state.metalCurrency = metalCurrency;
     },
   },
   actions: {
-    getRealTimeMetalPrice(context, payload) {
-      MetalCurrencyService.getRealTimeMetalPrice(
-        payload.metal,
-        payload.currency
-      ).then((response: AxiosResponse) => {
-        console.log(response);
-      });
+    getLatestRates(context, payload) {
+      MetalCurrencyService.getLatestRates(payload.base, payload.symbols)
+        .then((response: AxiosResponse) => {
+          console.log(response);
+          context.commit("setMetalCurrency", response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
   modules: {},
