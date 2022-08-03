@@ -7,7 +7,9 @@ export default createStore({
     metalCurrency: {
       success: true,
       base: "",
-      rates: {},
+      rates: {
+        USD: "",
+      },
     },
   },
   getters: {

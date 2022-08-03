@@ -1,21 +1,23 @@
 import { shallowMount, flushPromises } from "@vue/test-utils";
 import MetalCurrencyTradingComponent from "@/components/MetalCurrencyTradingComponent.vue";
+import store from "@/store/index";
 
 describe("MetalCurrencyTradingComponent.vue", () => {
-  it("renders props.metalCode and props.currencyCode when passed", async () => {
-    const metalCode = "XAU";
-    const currencyCode = "USD";
+  it("renders props.base and props.symbols when passed", async () => {
+    const base = "XAU";
+    const symbols = ["USD"];
     const wrapper = shallowMount(MetalCurrencyTradingComponent, {
       props: {
-        metalCode: "",
-        currencyCode: "",
+        base: "",
+        symbols: [""],
       },
+      store,
     });
     wrapper.setProps({
-      metalCode: metalCode,
-      currencyCode: currencyCode,
+      base: base,
+      symbols: symbols,
     });
     await flushPromises();
-    expect(wrapper.find("h3").text()).toContain(`${metalCode}${currencyCode}`);
+    expect(wrapper.find("h3").text()).toContain(`${base}${symbols}`);
   });
 });
