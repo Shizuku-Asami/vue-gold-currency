@@ -6,6 +6,7 @@
       <span>{{ getPrice }}</span>
       <span>{{ symbol }}</span>
     </div>
+    <div>{{ getMetalCurrency }}</div>
   </div>
 </template>
 
