@@ -1,9 +1,9 @@
 <template>
   <div>
     <NewsTickerComponent />
-    <div v-for="symbol in symbols" :key="symbol">
+    <!-- <div v-for="symbol in symbols" :key="symbol">
       <MetalCurrencyTradingComponent :base="base" :symbol="symbol" />
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -17,7 +17,7 @@ const symbols = ["USD", "EUR", "GBP", "JPY", "SAR"];
 
 export default defineComponent({
   name: "HomeView",
-  components: { MetalCurrencyTradingComponent, NewsTickerComponent },
+  components: { NewsTickerComponent },
   data() {
     return {
       base: base,

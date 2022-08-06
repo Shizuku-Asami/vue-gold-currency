@@ -1,6 +1,7 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import { createStore } from "vuex";
 import { MetalCurrencyService } from "../services/currency.service";
+import NewsModule from "./news/index";
 
 export default createStore({
   state: {
@@ -33,7 +34,7 @@ export default createStore({
   actions: {
     getLatestRates(context, payload) {
       MetalCurrencyService.getLatestRates(payload.base, payload.symbols)
-        .then((response: AxiosResponse) => {
+        .then((response) => {
           console.log(response);
           context.commit("setMetalCurrency", response.data);
         })
@@ -61,5 +62,7 @@ export default createStore({
         });
     },
   },
-  modules: {},
+  modules: {
+    news: NewsModule,
+  },
 });
