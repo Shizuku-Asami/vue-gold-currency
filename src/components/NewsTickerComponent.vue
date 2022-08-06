@@ -2,10 +2,10 @@
   <div class="ticker-container" v-if="isVisible">
     <div v-on:click="toggleVisible" class="ticker-toggler">X</div>
     <div class="ticker-wrap">
-      <div class="ticker">
-        <div v-for="item in getCryptoNewsList" :key="item" class="ticker__item">
+      <div :style="cssVariables" class="ticker">
+        <div v-for="item in GET_ALL_NEWS" :key="item" class="ticker__item">
           <div>
-            <a :href="item.url">{{ item.title }}</a>
+            <a :href="item.link">{{ item.title }}</a>
           </div>
         </div>
       </div>
@@ -14,8 +14,6 @@
 </template>
 
 <style lang="scss">
-$duration: 600s;
-
 @-webkit-keyframes ticker {
   0% {
     -webkit-transform: translate3d(0, 0, 0);
@@ -81,8 +79,8 @@ $duration: 600s;
     animation-timing-function: linear;
     -webkit-animation-name: ticker;
     animation-name: ticker;
-    -webkit-animation-duration: $duration;
-    animation-duration: $duration;
+    -webkit-animation-duration: var(--duration);
+    animation-duration: var(--duration);
 
     &:hover {
       animation-play-state: paused;
@@ -106,26 +104,71 @@ $duration: 600s;
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 
 export default defineComponent({
+  props: {
+    duration: {
+      type: Number,
+      default: 600,
+    },
+  },
   data() {
     return {
-      news: [{ title: "" }],
       isVisible: true,
     };
   },
   methods: {
-    ...mapActions(["getCryptoNews"]),
+    ...mapActions([
+      "FETCH_ALL_NEWS",
+      "FETCH_COMMIDITIES_NEWS",
+      "FETCH_CRYPTO_CURRENCY_NEWS",
+      "FETCH_ECONOMIC_INDICATOR_NEWS",
+      "FETCH_ECONOMY_NEWS",
+      "FETCH_FOREX_NEWS",
+      "FETCH_STOCK_MARKET_NEWS",
+    ]),
+    ...mapMutations([
+      "SET_ALL_NEWS",
+      "SET_COMMIDITIES_NEWS",
+      "SET_CRYPTO_CURRENCY_NEWS",
+      "SET_ECONOMIC_INDICATOR_NEWS",
+      "SET_ECONOMY_NEWS",
+      "SET_FOREX_NEWS",
+      "SET_STOCK_MARKET_NEWS",
+      "UNSET_ALL_NEWS",
+      "UNSET_COMMIDITIES_NEWS",
+      "UNSET_CRYPTO_CURRENCY_NEWS",
+      "UNSET_ECONOMIC_INDICATOR_NEWS",
+      "UNSET_ECONOMY_NEWS",
+      "UNSET_FOREX_NEWS",
+      "UNSET_STOCK_MARKET_NEWS",
+    ]),
     toggleVisible() {
       this.isVisible = !this.isVisible;
     },
   },
   computed: {
-    ...mapGetters(["getCryptoNewsList"]),
+    ...mapGetters([
+      "GET_ALL_NEWS",
+      "GET_COMMIDITIES_NEWS",
+      "GET_CRYPTO_CURRENCY_NEWS",
+      "GET_ECONOMIC_INDICATOR_NEWS",
+      "GET_ECONOMY_NEWS",
+      "GET_FOREX_NEWS",
+      "GET_STOCK_MARKET_NEWS",
+    ]),
+    cssVariables() {
+      return {
+        "--duration": this.duration,
+      };
+    },
   },
   mounted: function () {
-    this.getCryptoNews();
+    this.FETCH_ALL_NEWS();
+  },
+  beforeUnmount: function () {
+    this.UNSET_ALL_NEWS();
   },
 });
 </script>
